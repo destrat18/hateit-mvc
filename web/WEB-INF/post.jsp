@@ -71,23 +71,6 @@
 
             }
         }
-        function deletePost(postId)
-        {
-            console.log("daelete");
-            $.ajax({
-                    type: 'delete', // it's easier to read GET request parameters
-                    url: window.location.pathname,
-                    success: function (response) {
-                        console.log(response);
-                        if(response["success"])
-                            window.location.replace("/");
-                        else
-                            showNotification("شما نمی‌توانید این پست را حذف کنید")
-                    }
-                }
-            );
-        }
-
         $(document).ready(function(){
             $(".hate_button").click(function () {
                 sendHate(getPostId(), $(this).find("span"));
@@ -96,10 +79,6 @@
             $("#send_comment").click(function () {
                 var content = $('#comment_content').val();
                 sendComment(getPostId(), content);
-            });
-
-            $("#delete_post").click(function () {
-                deletePost(getPostId());
             });
 
         });
@@ -260,12 +239,16 @@
                     </div>
                 </div>
                 <br>
-                <c:if test="${sessionScope.user.canDelete == true}">
+                <c:if test="${!empty sessionScope.user && sessionScope.user.value >= post.user.value}">
                     <div class="w3-card w3-round w3-white w3-center">
                         <div class="w3-container">
                             <p>تبریک!</p>
                             <p>شما می‌توانید این پست را حذف کنید!</p>
-                            <p><button id="delete_post" class="w3-button w3-block" style="background-color: indianred;">حذف</button></p>
+                            <p>
+                                <form action="/delete-post/${post.id}" method="get">
+                                    <button class="w3-button w3-block" style="background-color: indianred;">حذف</button>
+                                </form>
+                            </p>
                         </div>
                     </div>
                     <br>

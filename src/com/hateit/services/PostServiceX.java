@@ -150,4 +150,14 @@ public class PostServiceX implements PostService {
     public boolean isExist(String id) throws Exception {
         return postRepository.isExist(id);
     }
+
+    @Override
+    public void delete(String id, User currentUser) throws Exception {
+        Post post = postRepository.getById(id);
+        if(post == null)
+            throw new HTTPException(404);
+        if(post.getUser().getValue() > currentUser.getValue())
+            throw new HateItException("/post/"+post.getImage(), post.getTitle(), "شما نمی‌توانید این پست را حذف کنید");
+        postRepository.remove(id);
+    }
 }

@@ -148,19 +148,10 @@ public class User {
     {
         return (PersianCalendar.getDiffrentDayFromToday(getYear(), getMonth(), getDay())/365);
     }
+
     public String getMonthName()
     {
         return PersianCalendar.monthNames[getMonth()-1];
-    }
-
-    public boolean getCanDelete()
-    {
-        return getValue() > 2000;
-    }
-
-    public boolean getCanChangeCategories()
-    {
-        return getValue() > 2500;
     }
 
     @Override

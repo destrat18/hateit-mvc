@@ -70,7 +70,7 @@ public class UserServiceX implements UserService {
             nUser.setId(Utility.getUniqueId());
             nUser.setUsername(username);
             nUser.setPassword(password);
-            nUser.setImage("https://www.w3schools.com/w3images/avatar3.png");
+            nUser.setImage("avatar3.png");
             userRepository.add(nUser);
             return nUser;
         }

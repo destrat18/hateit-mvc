@@ -11,6 +11,7 @@ import java.util.List;
 
 public interface PostService {
     public Post get(String id) throws Exception;
+    public void delete(String id, User user) throws Exception;
     public Post add(String title,
                     String content,
                     String categories,

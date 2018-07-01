@@ -1,5 +1,6 @@
 package com.hateit.controller;
 
+import com.hateit.common.HateItException;
 import com.hateit.interfaces.services.CategoryService;
 import com.hateit.interfaces.services.PostService;
 import com.hateit.interfaces.services.UserService;
@@ -60,14 +61,14 @@ public class HomeController {
 //        return mav;
 //    }
 
-//    @ExceptionHandler(HateItException.class)
-//    public String handleHateItException(HateItException ex, Model model) {
-////        ModelAndView mav = new ModelAndView("exception", "ex", ex);
-////        mav.addObject("ex", ex);
-////        mav.setViewName("exception");
-//        model.addAttribute("ex", ex);
-//        return "exception";
-//    }
+    @ExceptionHandler(HateItException.class)
+    public String handleHateItException(HateItException ex, Model model) {
+//        ModelAndView mav = new ModelAndView("exception", "ex", ex);
+//        mav.addObject("ex", ex);
+//        mav.setViewName("exception");
+        model.addAttribute("ex", ex);
+        return "exception";
+    }
 
 
 }

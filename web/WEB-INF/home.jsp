@@ -138,7 +138,7 @@
                                     <p><i class="fa fa-home fa-fw w3-margin-left w3-text-theme"></i> ${sessionScope.user.location}</p>
                                 </c:if>
 
-                                <c:if test="${! empty sessionScope.user.year}">
+                                <c:if test="${ sessionScope.user.month > 0}">
                                     <p>
                                         <i class="fa fa-heart fa-fw w3-margin-left w3-text-theme"></i>
                                             ${sessionScope.user.day} ${sessionScope.user.monthName} ${sessionScope.user.year}

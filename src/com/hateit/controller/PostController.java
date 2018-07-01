@@ -53,6 +53,13 @@ public class PostController {
         return "post";
     }
 
+
+    @RequestMapping(value = {"/delete-post/{id}"}, method = RequestMethod.GET)
+    protected String deletePost(@PathVariable("id") String id, @ModelAttribute("user") User currentUser) throws Exception {
+        postService.delete(id, currentUser);
+        return "redirect:/";
+    }
+
     @RequestMapping(value = {"/hate"}, method = RequestMethod.POST)
     @ResponseBody
     public String hate(@RequestBody String json,
