@@ -7,13 +7,18 @@ import com.hateit.interfaces.services.PostService;
 import com.hateit.interfaces.services.UserService;
 import com.hateit.models.*;
 import com.j256.ormlite.stmt.QueryBuilder;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.naming.directory.InitialDirContext;
 import javax.servlet.ServletException;
 import javax.xml.ws.http.HTTPException;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +54,8 @@ public class PostServiceX implements PostService {
     public Post add(String title,
                     String content,
                     String categories,
-                    User user) throws Exception
+                    User user,
+                    MultipartFile file) throws Exception
     {
         HateItException hateItException = new HateItException("/new-post","پست جدید");
 
@@ -59,6 +65,7 @@ public class PostServiceX implements PostService {
             hateItException.getMessages().add("محتوا نباید خالی باشد!");
         if(categories == null || categories.replace(" ", "").length() == 0)
             hateItException.getMessages().add("موضوع نباید خالی باشد!");
+
         if(hateItException.isHappen())
             throw hateItException;
         else
@@ -77,6 +84,32 @@ public class PostServiceX implements PostService {
                     nCategory.setPost(nPost);
                     categoryRepository.add(nCategory);
                 }
+
+            //upload image
+            if(file != null && !file.isEmpty())
+            {
+                try {
+                    byte[] bytes = file.getBytes();
+
+                    // Creating the directory to store file
+                    String rootPath = "/home/des/.hateit/image";
+                    File dir = new File(rootPath);
+                    if (!dir.exists())
+                        dir.mkdirs();
+                    // Create the file on server
+                    String fileName = Utility.getUniqueId() + ".jpg";
+                    File serverFile = new File(dir.getAbsolutePath()
+                            + File.separator + fileName);
+                    nPost.setImage(fileName);
+                    BufferedOutputStream stream = new BufferedOutputStream(
+                            new FileOutputStream(serverFile));
+                    stream.write(bytes);
+                    stream.close();
+
+                } catch (Exception e) {
+                    hateItException.getMessages().add("You failed to upload " + nPost.getId() + " => " + e.getMessage());
+                }
+            }
 
             if(hateItException.isHappen())
                 throw hateItException;

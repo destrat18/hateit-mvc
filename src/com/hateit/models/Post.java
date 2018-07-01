@@ -34,6 +34,16 @@ public class Post {
     @DatabaseField(foreign = true, foreignAutoRefresh = true)
     private User user;
 
+    @DatabaseField
+    private String image;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public ForeignCollection<Comment> getComments() {
         return comments;

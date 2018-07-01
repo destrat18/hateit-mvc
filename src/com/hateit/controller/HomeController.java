@@ -2,10 +2,20 @@ package com.hateit.controller;
 
 import com.hateit.interfaces.services.PostService;
 import com.hateit.interfaces.services.UserService;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import java.awt.*;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @ControllerAdvice
 @Controller
@@ -17,6 +27,7 @@ public class HomeController {
 
     @Autowired
     private PostService postService;
+
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     protected String showHome(Model model) throws Exception {
@@ -35,39 +46,6 @@ public class HomeController {
         return "home";
     }
 
-//    @RequestMapping(value = "/login", method = RequestMethod.POST)
-//    protected String processLogin(@ModelAttribute("login_user") UserEntity loginUser, Model model) {
-//        if (!model.containsAttribute("user")) {
-//            UserEntity userEntity = postService.verifyUser(loginUser.getUsername(), loginUser.getPassword());
-//            model.addAttribute("user", userEntity);
-//        }
-//        return "redirect:/";
-//    }
-//
-//    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-//    protected ModelAndView processLogout(HttpSession session, Model model) {
-//        session.invalidate();
-//        model.asMap().clear();
-//        return new ModelAndView("redirect", "retitle", "You are successfully logged out!");
-//    }
-//
-//    @RequestMapping(value = "/signup", method = RequestMethod.GET)
-//    public ModelAndView showSignUp() {
-//        return new ModelAndView("signup", "signup_user", postService.createUserEntity());
-//    }
-//
-//    @RequestMapping(value = "/signup", method = RequestMethod.POST)
-//    protected ModelAndView processSignup(@ModelAttribute("signup_user") UserEntity signupUser) {
-//        postService.add(signupUser);
-//        return new ModelAndView("redirect", "retitle", "You are successfully signed up!");
-//    }
-//
-//    @ResponseStatus(value= HttpStatus.CONFLICT, reason="Data integrity violation")  // 409
-//    @ExceptionHandler(DataIntegrityViolationException.class)
-//    public void conflict() {
-//        //Nothing
-//    }
-//
 
 //    @ExceptionHandler(Exception.class)
 //    public ModelAndView handleError(HttpServletRequest req, Exception ex) {

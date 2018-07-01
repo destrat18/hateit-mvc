@@ -81,30 +81,30 @@
             </div>
         </div>
 
-        </div>
     </div>
-    <div class="w3-top">
-        <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
-            <a href="/" class="w3-right w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Login"><i class="fa fa-home"></i> هیت‌ایت</a>
+</div>
+<div class="w3-top">
+    <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
+        <a href="/" class="w3-right w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Login"><i class="fa fa-home"></i> هیت‌ایت</a>
 
-            <c:choose>
-                <c:when test="${!empty sessionScope.user}">
-                    <a href="/new-post" class="w3-right w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="پست جدید"><i class="fa fa-plus fa-flip-horizontal"></i> پست جدید</a>
-                    <a href="/logout" class="w3-left w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="خروج"><i class="fa fa-sign-out fa-flip-horizontal"></i> خروج</a>
-                    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-left w3-padding-large w3-hover-white" title="My Account">
-                        <img src="${sessionScope.user.image}" class="w3-circle" style="height:23px;width:23px">
-                            ${sessionScope.user.name}
-                    </a>
-                </c:when>
-                <c:otherwise>
-                    <a href="/login" class="w3-right w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="ورود"><i class="fa fa-sign-in fa-flip-horizontal"></i> ورود</a>
-                    <a href="/sign-up" class="w3-right w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Login"><i class="fa fa-user-plus"></i> ثبت‌نام</a>
+        <c:choose>
+            <c:when test="${!empty sessionScope.user}">
+                <a href="/new-post" class="w3-right w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="پست جدید"><i class="fa fa-plus fa-flip-horizontal"></i> پست جدید</a>
+                <a href="/logout" class="w3-left w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="خروج"><i class="fa fa-sign-out fa-flip-horizontal"></i> خروج</a>
+                <a href="#" class="w3-bar-item w3-button w3-hide-small w3-left w3-padding-large w3-hover-white" title="My Account">
+                    <img src="${sessionScope.user.image}" class="w3-circle" style="height:23px;width:23px">
+                        ${sessionScope.user.name}
+                </a>
+            </c:when>
+            <c:otherwise>
+                <a href="/login" class="w3-right w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="ورود"><i class="fa fa-sign-in fa-flip-horizontal"></i> ورود</a>
+                <a href="/sign-up" class="w3-right w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Login"><i class="fa fa-user-plus"></i> ثبت‌نام</a>
 
-                </c:otherwise>
-            </c:choose>
+            </c:otherwise>
+        </c:choose>
 
-        </div>
     </div>
+</div>
 
 <!-- Page Container -->
 <div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">
@@ -119,12 +119,14 @@
                 <div class="w3-col m12">
                     <div class="w3-card w3-round w3-white">
                         <div class="w3-container w3-padding">
-                            <form action="new-post" method="post" name="postForm" onsubmit="return checkPost();">
+                            <form enctype="multipart/form-data" action="new-post" method="post" name="postForm" onsubmit="return checkPost();">
                                 <h6 class="w3-opacity">تیتر</h6>
                                 <input type="text" placeholder="تیتر" class="w3-border w3-padding" name="title" style="width: 100%;" autofocus/>
                                 <h6 class="w3-opacity">محتوا</h6>
                                 <textarea name="content" style="width: 100%; height: 200px"></textarea>
                                 <hr>
+                                <input type="file" name="file">
+                                <br>
                                 <input type="text" placeholder="ورزشی" class="w3-border w3-padding" id="category" name="category" style="width: 100%;" autofocus/>
                                 <%--<br>--%>
                                 <%--<br>--%>

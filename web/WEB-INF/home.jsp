@@ -96,6 +96,10 @@
                     <h6><a href="/post/${post.id}">${post.date}</a> </h6>
                     <hr class="w3-clear">
                     <h2>${post.title}</h2>
+                    <c:if test="${! empty post.image}">
+                        <image class="post_image" src="/image/${post.image}" style="alignment: center"></image>
+                        <br>
+                    </c:if>
                     <p>${post.content}</p>
                     <c:forEach items="${post.categories}" var="cat">
                         <a href="/category/${cat}"><span class="w3-tag w3-small w3-theme-d3" >${cat}</span></a>

@@ -8,9 +8,18 @@
     <context:annotation-config />
     <mvc:resources mapping = "/pages/**" location = "/WEB-INF/pages/" />
     <mvc:resources mapping="/static/**" location="/static/" />
+    <mvc:resources mapping="/image/**" location="file:/home/des/.hateit/image/" />
+
     <mvc:annotation-driven/>
+
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/" />
         <property name="suffix" value=".jsp" />
+    </bean>
+
+    <bean id="multipartResolver"
+                class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- setting maximum upload size -->
+        <property name="maxUploadSize" value="500000" />
     </bean>
 </beans>

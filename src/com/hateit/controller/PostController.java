@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.test.util.JsonExpectationsHelper;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,9 +39,10 @@ public class PostController {
                              @RequestParam("content") String content,
                              @RequestParam("category") String category,
                              @ModelAttribute("user") User currentUser,
-                             Model model) throws Exception
+                             @RequestParam("file") MultipartFile file
+    ) throws Exception
     {
-        Post nPost = postService.add(title, content, category, currentUser);
+        Post nPost = postService.add(title, content, category, currentUser, file);
         return "redirect:/post/"+nPost.getId();
     }
 
