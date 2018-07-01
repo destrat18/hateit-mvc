@@ -84,33 +84,7 @@ public class PostServiceX implements PostService {
                     nCategory.setPost(nPost);
                     categoryRepository.add(nCategory);
                 }
-
-            //upload image
-            if(file != null && !file.isEmpty())
-            {
-                try {
-                    byte[] bytes = file.getBytes();
-
-                    // Creating the directory to store file
-                    String rootPath = "/home/des/.hateit/image";
-                    File dir = new File(rootPath);
-                    if (!dir.exists())
-                        dir.mkdirs();
-                    // Create the file on server
-                    String fileName = Utility.getUniqueId() + ".jpg";
-                    File serverFile = new File(dir.getAbsolutePath()
-                            + File.separator + fileName);
-                    nPost.setImage(fileName);
-                    BufferedOutputStream stream = new BufferedOutputStream(
-                            new FileOutputStream(serverFile));
-                    stream.write(bytes);
-                    stream.close();
-
-                } catch (Exception e) {
-                    hateItException.getMessages().add("You failed to upload " + nPost.getId() + " => " + e.getMessage());
-                }
-            }
-
+            nPost.setImage(Utility.uploadFile(file));
             if(hateItException.isHappen())
                 throw hateItException;
             else {

@@ -1,5 +1,6 @@
 package com.hateit.models;
 
+import com.hateit.common.PersianCalendar;
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -19,7 +20,13 @@ public class User {
     private String Password;
 
     @DatabaseField
-    private long birthDate;
+    private int year;
+
+    @DatabaseField
+    private int month;
+
+    @DatabaseField
+    private int day;
 
     @DatabaseField
     private String location;
@@ -35,6 +42,31 @@ public class User {
 
     @ForeignCollectionField(eager = true, orderColumnName = "timestamp")
     private ForeignCollection<Post> posts;
+
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
 
     public String getName() {
         return name;
@@ -68,14 +100,6 @@ public class User {
         Password = password;
     }
 
-    public long getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(long birthDate) {
-        this.birthDate = birthDate;
-    }
-
     public String getLocation() {
         return location;
     }
@@ -93,7 +117,7 @@ public class User {
     }
 
     public String getImage() {
-        return image;
+        return "/image/"+image;
     }
 
     public void setImage(String image) {
@@ -111,17 +135,22 @@ public class User {
     public int getValue()
     {
         int value = 0;
-//        for(Post p:getPosts())
-//        {
-//            value += 2;
-//            value += 2*2;
-//        }
+        if(getPosts().size() > 0)
+            for(Post p:getPosts())
+            {
+                value += p.getCommentsCount()*2;
+                value += p.getHatesCount();
+            }
         return value;
     }
 
-    public long getAge()
+    public int getAge()
     {
-        return ((System.currentTimeMillis()/1000 - getBirthDate()))/(60*60*24*365);
+        return (PersianCalendar.getDiffrentDayFromToday(getYear(), getMonth(), getDay())/365);
+    }
+    public String getMonthName()
+    {
+        return PersianCalendar.monthNames[getMonth()-1];
     }
 
     public boolean getCanDelete()

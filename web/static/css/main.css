@@ -1,5 +1,5 @@
 html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif; direction: rtl}
-p {direction: rtl}
+p, i {direction: rtl}
 
 img.post_image {
     display: block;

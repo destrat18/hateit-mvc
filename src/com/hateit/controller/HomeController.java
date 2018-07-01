@@ -1,5 +1,6 @@
 package com.hateit.controller;
 
+import com.hateit.interfaces.services.CategoryService;
 import com.hateit.interfaces.services.PostService;
 import com.hateit.interfaces.services.UserService;
 import org.apache.commons.io.IOUtils;
@@ -28,6 +29,8 @@ public class HomeController {
     @Autowired
     private PostService postService;
 
+    @Autowired
+    private CategoryService categoryService;
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     protected String showHome(Model model) throws Exception {
@@ -36,6 +39,7 @@ public class HomeController {
 //            return "login";
 //        }
         model.addAttribute("posts", postService.getAll());
+        model.addAttribute("categories", categoryService.getAll());
         return "home";
     }
 

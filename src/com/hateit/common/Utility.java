@@ -1,5 +1,10 @@
 package com.hateit.common;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.UUID;
 
 public class Utility {
@@ -18,6 +23,33 @@ public class Utility {
     public static String getUniqueId()
     {
         return UUID.randomUUID().toString();
+    }
+
+    public static String uploadFile(MultipartFile file )
+    {
+        if (file != null && !file.isEmpty()) {
+            try {
+                byte[] bytes = file.getBytes();
+
+                // Creating the directory to store file
+                String rootPath = "/home/des/.hateit/image";
+                File dir = new File(rootPath);
+                if (!dir.exists())
+                    dir.mkdirs();
+                // Create the file on server
+                String fileName = Utility.getUniqueId() + ".jpg";
+                File serverFile = new File(dir.getAbsolutePath()
+                        + File.separator + fileName);
+                BufferedOutputStream stream = new BufferedOutputStream(
+                        new FileOutputStream(serverFile));
+                stream.write(bytes);
+                stream.close();
+                return fileName;
+            } catch (Exception e) {
+                throw new HateItException("/profile", "پروفایل", e.toString());
+            }
+        }
+        return null;
     }
 
 }

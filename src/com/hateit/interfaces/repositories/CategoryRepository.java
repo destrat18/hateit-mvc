@@ -11,4 +11,5 @@ import java.util.List;
 public abstract class CategoryRepository extends CRUDRepository<Category>{
     public abstract Category getByName(String name) throws SQLException;
     public abstract List<Post> getAllPostByName(String name) throws SQLException;
+    public abstract List<Category> getAllByUser(User user) throws SQLException;
 }

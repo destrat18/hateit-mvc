@@ -60,4 +60,24 @@ public class ORMLiteCategoryRepository extends CategoryRepository {
         pBuilder.join(cBuilder);
         return pBuilder.query();
     }
+
+    @Override
+    public List<Category> getAllByUser(User user) throws SQLException {
+        QueryBuilder<Category, String> cBuilder = getUserDao().queryBuilder();
+        cBuilder.selectColumns("name");
+        cBuilder.groupBy("name");
+        QueryBuilder<Post, String> pBuilder = postRepository.getUserDao().queryBuilder();
+        pBuilder.where().eq("user_id", user.getId());
+        cBuilder.join(pBuilder);
+        return cBuilder.query();
+    }
+
+
+
+    @Override
+    public List<Category> getAll() throws SQLException {
+        QueryBuilder<Category, String> cBuilder = getUserDao().queryBuilder();
+        cBuilder.selectColumns("name").groupBy("name");
+        return cBuilder.query();
+    }
 }

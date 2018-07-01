@@ -17,9 +17,6 @@ function sendHate(post_id, span_tag) {
                 span_tag.html(data["hate_count"]);
             else
                 showNotification(data["status_message"])
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            showNotification("مشکلی پیش‌ آمده، لطفا دوباره امتحان کنید!");
         }
     });
 }

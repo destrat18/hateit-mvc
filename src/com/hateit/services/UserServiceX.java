@@ -8,10 +8,17 @@ import com.hateit.models.Hate;
 import com.hateit.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletException;
 import javax.swing.*;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
 
 @Service
 public class UserServiceX implements UserService {
@@ -63,10 +70,6 @@ public class UserServiceX implements UserService {
             nUser.setId(Utility.getUniqueId());
             nUser.setUsername(username);
             nUser.setPassword(password);
-            nUser.setBirthDate(60*60*24*365*23);
-            nUser.setShortDescription("برنامه‌نویس");
-            nUser.setLocation("مشهد");
-            nUser.setName("سروش");
             nUser.setImage("https://www.w3schools.com/w3images/avatar3.png");
             userRepository.add(nUser);
             return nUser;
@@ -92,9 +95,29 @@ public class UserServiceX implements UserService {
 
     @Override
     public void updateUser(User user) throws Exception {
-//        if(userRepository.getById(user.getId()) == null)
-//            throw  new HateItException("/login","ورود", "کاربر وجود ندارد!");
-//        else
-//            userRepository.update(user);
+        if(userRepository.getById(user.getId()) == null)
+            throw  new HateItException("/login","ورود", "کاربر وجود ندارد!");
+        else
+            userRepository.update(user);
+    }
+
+    public UserRepository getUserRepository() {
+        return userRepository;
+    }
+
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    @Override
+    public void updateUser(String name, String location, String shortDescription, int year, int month, int day, MultipartFile file, User user) throws Exception {
+        user.setShortDescription(shortDescription);
+        user.setLocation(location);
+        user.setName(name);
+        user.setYear(year);
+        user.setMonth(month);
+        user.setDay(day);
+        user.setImage(Utility.uploadFile(file));
+        userRepository.update(user);
     }
 }

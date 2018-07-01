@@ -71,7 +71,7 @@ public class PersianCalendar {
             "سه شنبه", "چهارشنبه",
             "پنج شنبه", "جمعه"
     };
-    private static String[] monthNames ={
+    public static String[] monthNames ={
             "فروردین","اردیبهشت","خرداد","تیر", "مرداد","شهریور",
             "مهر", "آبان", "آذر","دی", "بهمن","اسفند"
     };
