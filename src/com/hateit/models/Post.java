@@ -24,7 +24,7 @@ public class Post {
     @ForeignCollectionField
     private ForeignCollection<Category> categories;
 
-    @ForeignCollectionField(eager = true, orderColumnName = "timestamp")
+    @ForeignCollectionField(eager = true, orderColumnName = "timestamp", orderAscending = false)
     private ForeignCollection<Comment> comments;
 
     @ForeignCollectionField(eager = true)

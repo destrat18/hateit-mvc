@@ -39,7 +39,6 @@
 
         function sendComment(postId, content)
         {
-
             if(content.length == 0)
             {
                 showNotification("متن تنفر نباید خالی باشد");
@@ -47,34 +46,26 @@
             else
             {
                 $.ajax({
-                        type: 'post', // it's easier to read GET request parameters
-                        url: '/comment',
-                        dataType: 'JSON',
-                        data: {
-                            post_id: postId,
-                            content: content
-                        },
-                        success: function (response) {
-                            if(!response["error_happen"])
-                            {
-                                $("#comment_container").prepend("" +
-                                    "                    <div class=\"w3-container w3-card w3-white w3-round w3-margin\">\n" +
-                                    "\n" +
-                                    "                        <div class=\"media\">\n" +
-                                    "                            <div class=\"media-right\">\n" +
-                                    "                                <img src=\" " + response["image"] + " \" class=\"media-object\" style=\"width:60px\">\n" +
-                                    "                            </div>\n" +
-                                    "                            <div class=\"media-body\">\n" +
-                                    "                                <h4 class=\"media-heading\"> " + response["name"] + "</h4>\n" +
-                                    "                                <h6>" + response["date"] +" </h6>\n" +
-                                    "                                <p>" + content + "</p>\n" +
-                                    "                            </div>\n" +
-                                    "                        </div>\n" +
-                                    "\n" +
-                                    "                    </div>"
-                                );
-                            }
-                        }
+                    url: "/comment",
+                    type: "POST",
+                    cache: false,
+                    async: true,
+                    contentType: "application/json; charset=UTF-8",
+                    data: JSON.stringify({
+                        "postId": postId,
+                        "content": content
+                    }),
+                    datatype: "json",
+                    success: function (response) {
+                        console.log(response);
+                        var new_comment = $("#comment_template").clone();
+                        new_comment.prop("id", "commentId");
+                        new_comment.find(".comment_title").text(response["name"]);
+                        new_comment.find(".comment_content").text(response["content"]);
+                        new_comment.find(".comment_image").attr("src", response["image"]);
+                        new_comment.find(".comment_date").text(response["date"]);
+                        $("#comment_container").prepend(new_comment);
+                    }
                     }
                 );
 
@@ -115,6 +106,23 @@
     </script>
 </head>
 <body class="w3-theme-l5">
+    <%--hidden comment--%>
+    <div class="w3-container w3-card w3-white w3-round w3-margin comment_body" id="comment_template">
+
+        <div class="media">
+            <div class="media-right">
+                <img src="" class="media-object comment_image" style="width:60px">
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading comment_title"></h4>
+                <h6 class="comment_date"></h6>
+                <p class="comment_content"></p>
+            </div>
+        </div>
+
+    </div>
+
+
     <%--notification popup--%>
     <div class="modal fade" id="notification_modal" role="dialog">
         <div class="modal-dialog">

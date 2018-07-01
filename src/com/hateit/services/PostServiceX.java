@@ -67,6 +67,7 @@ public class PostServiceX implements PostService {
             nPost.setTitle(title);
             nPost.setContent(content);
             nPost.setUser(user);
+            nPost.setTimestamp(System.currentTimeMillis()/1000);
             nPost.setId(UUID.randomUUID().toString());
             for(String cat:categories.split(" "))
                 if(cat.length() > 0) {
@@ -88,7 +89,9 @@ public class PostServiceX implements PostService {
 
     @Override
     public List<Post> getAll() throws Exception {
-        return postRepository.getAll();
+        QueryBuilder<Post, String> queryBuilder = postRepository.getUserDao().queryBuilder();
+        queryBuilder.orderBy("timestamp", false);
+        return queryBuilder.query();
     }
 
     @Override
@@ -112,7 +115,7 @@ public class PostServiceX implements PostService {
         Hate nHate = new Hate();
         nHate.setUser(user);
         nHate.setPost(post);
-        nHate.setTimestamp(System.currentTimeMillis());
+        nHate.setTimestamp(System.currentTimeMillis()/1000);
         nHate.setId(Utility.getUniqueId());
         hateRepository.add(nHate);
         return true;
@@ -131,7 +134,7 @@ public class PostServiceX implements PostService {
         nComment.setUser(user);
         nComment.setContent(content);
         nComment.setId(Utility.getUniqueId());
-        nComment.setTimestamp(System.currentTimeMillis());
+        nComment.setTimestamp(System.currentTimeMillis()/1000);
         commentRepository.add(nComment);
         return nComment;
     }

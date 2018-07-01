@@ -51,27 +51,52 @@ public class PostController {
         return "post";
     }
 
-    @RequestMapping(value = {"/comment"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/hate"}, method = RequestMethod.POST)
     @ResponseBody
     public String hate(@RequestBody String json,
                        @ModelAttribute("user") User currentUser) throws Exception {
         JSONObject jsonObject = new JSONObject(json);
 
         JSONObject returnObject = new JSONObject();
-        if(json.contains("postId") && json.contains("content")) {
-            Comment comment = postService.comment(jsonObject.getString("postId"),
+
+        if(jsonObject.has("postId")) {
+            if (postService.hate(jsonObject.getString("postId"), currentUser)) {
+                returnObject.put("status", true);
+                returnObject.put("hate_count", postService.get(jsonObject.getString("postId")).getHatesCount());
+            }
+        }
+        else {
+            returnObject.put("status", false);
+        }
+        return returnObject.toString();
+    }
+
+    @RequestMapping(value = {"/comment"}, method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public String comment(@RequestBody String json,
+                       @ModelAttribute("user") User currentUser) throws Exception {
+        JSONObject jsonObject = new JSONObject(json);
+        JSONObject returnObject = new JSONObject();
+
+        if(jsonObject.has("postId") && jsonObject.has("content")) {
+            Comment nComment = postService.comment(
+                    jsonObject.getString("postId"),
                     currentUser,
                     jsonObject.getString("content")
-            );
+                    );
+
             returnObject.put("name", currentUser.getName());
-            returnObject.put("content", comment.getContent());
-            returnObject.put("date", comment.getDate());
+            returnObject.put("content", nComment.getContent());
+            returnObject.put("date", nComment.getDate());
             returnObject.put("image", currentUser.getImage());
+            returnObject.put("commentId", nComment.getId());
         }
         else
-            throw new HateItException("/","خانه", "مشکلی با درخواست به وجود آمده‌است! لطفا دوباره امتحان کنید");
+            returnObject.put("status", false);
 
         return returnObject.toString();
     }
+
+
 
 }
