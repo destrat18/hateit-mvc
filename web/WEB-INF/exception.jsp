@@ -25,8 +25,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     <script src="<c:url value="/static/js/main.js" />"></script>
     <link rel="stylesheet" href="<c:url value="/static/css/main.css" />">
+
     <script>
 
         $(document).ready(function(){
@@ -37,49 +39,44 @@
     </script>
 </head>
 <body class="w3-theme-l5">
-    <%--notification popup--%>
-    <div class="modal fade" id="notification_modal" role="dialog">
-        <div class="modal-dialog">
+<div class="modal fade" id="notification_modal" role="dialog">
+    <div class="modal-dialog">
 
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title" id="notification_title"></h4>
-                </div>
-                <div class="modal-body">
-                    <p id="notification_message"></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">باشه</button>
-                </div>
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+                <p id="notification_message"></p>
             </div>
-
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">باشه</button>
+            </div>
         </div>
+
     </div>
-    <!-- Navbar -->
-    <div class="w3-top">
-        <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
-            <a href="/" class="w3-right w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Login"><i class="fa fa-home"></i> هیت‌ایت</a>
+</div>
+<!-- Navbar -->
+<div class="w3-top">
+    <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
+        <a href="/" class="w3-right w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Login"><i class="fa fa-home"></i> هیت‌ایت</a>
 
-            <c:choose>
-                <c:when test="${!empty sessionScope.user}">
-                    <a href="/new-post" class="w3-right w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="پست جدید"><i class="fa fa-plus fa-flip-horizontal"></i> پست جدید</a>
-                    <a href="/logout" class="w3-left w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="خروج"><i class="fa fa-sign-out fa-flip-horizontal"></i> خروج</a>
-                    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-left w3-padding-large w3-hover-white" title="My Account">
-                        <img src="${sessionScope.user.image}" class="w3-circle" style="height:23px;width:23px">
-                            ${sessionScope.user.name}
-                    </a>
-                </c:when>
-                <c:otherwise>
-                    <a href="/login" class="w3-right w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="ورود"><i class="fa fa-sign-up fa-flip-horizontal"></i> ورود</a>
-                    <a href="/sign-up" class="w3-right w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Login"><i class="fa fa-user-plus"></i> ثبت‌نام</a>
+        <c:choose>
+            <c:when test="${!empty sessionScope.user}">
+                <a href="/new-post" class="w3-right w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="پست جدید"><i class="fa fa-plus fa-flip-horizontal"></i> پست جدید</a>
+                <a href="/logout" class="w3-left w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="خروج"><i class="fa fa-sign-out fa-flip-horizontal"></i> خروج</a>
+                <a href="/profile" class="w3-bar-item w3-button w3-hide-small w3-left w3-padding-large w3-hover-white" title="My Account">
+                    <img src="${sessionScope.user.image}" class="w3-circle" style="height:23px;width:23px">
+                        ${sessionScope.user.name}
+                </a>
+            </c:when>
+            <c:otherwise>
+                <a href="/login" class="w3-right w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="ورود"><i class="fa fa-sign-in fa-flip-horizontal"></i> ورود</a>
+                <a href="/sign-up" class="w3-right w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Login"><i class="fa fa-user-plus"></i> ثبت‌نام</a>
 
-                </c:otherwise>
-            </c:choose>
+            </c:otherwise>
+        </c:choose>
 
-        </div>
     </div>
+</div>
 
     <!-- Page Container -->
     <div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">
@@ -105,7 +102,9 @@
                         <c:forEach items="${ex.messages}" var="message">
                             <li> ${message} </li>
                         </c:forEach>
+                        <br>
                         <a href="${ex.backLink}">${ex.backTitle}</a>
+                        <a href="/">خانه</a>
                     </div>
                 </div>
                 <br>

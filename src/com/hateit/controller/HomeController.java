@@ -12,7 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.ws.http.HTTPException;
 import java.awt.*;
 import java.io.*;
 import java.nio.file.Files;
@@ -61,6 +63,14 @@ public class HomeController {
 //        mav.setViewName("exception");
         model.addAttribute("ex", ex);
         return "exception";
+    }
+
+    @ExceptionHandler(HTTPException.class)
+    public String handleHttpException(HTTPException ex, Model model) {
+//        ModelAndView mav = new ModelAndView("exception", "ex", ex);
+//        mav.addObject("ex", ex);
+//        mav.setViewName("exception");
+        return "not-found";
     }
 
 

@@ -120,12 +120,23 @@ public class PostServiceX implements PostService {
         if(post == null)
             return false;
 
-        Hate nHate = new Hate();
-        nHate.setUser(user);
-        nHate.setPost(post);
-        nHate.setTimestamp(System.currentTimeMillis()/1000);
-        nHate.setId(Utility.getUniqueId());
-        hateRepository.add(nHate);
+        Hate nHate = null;
+
+        if(post.getHates()!=null)
+            for(Hate h:post.getHates())
+                if(h.getUser().getId().equals(user.getId()))
+                    nHate = h;
+        if(nHate == null) {
+            nHate = new Hate();
+            nHate.setUser(user);
+            nHate.setPost(post);
+            nHate.setTimestamp(System.currentTimeMillis() / 1000);
+            nHate.setId(Utility.getUniqueId());
+            hateRepository.add(nHate);
+        }
+        else{
+            hateRepository.remove(nHate.getId());
+        }
         return true;
     }
 

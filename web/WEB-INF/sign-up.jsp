@@ -259,7 +259,7 @@
     </div>
 </div>
 <div class="wrapper">
-    <form name="loginForm" class="login" maction="sign-up" method="post">
+    <form name="loginForm" class="login" maction="sign-up" method="post" onsubmit="return checkForm()">
         <p class="title">سلام!</p>
         <input type="text" placeholder="نام‌ کاربری" name="username" data-toggle="popover" title="Popover Header" data-content="Some content inside the popover" autofocus/>
         <i class="fa fa-user"></i>
@@ -267,7 +267,7 @@
         <i class="fa fa-key"></i>
         <input type="password" placeholder="تکرار گذرواژه" name="repassword" />
         <i class="fa fa-key"></i>
-        <a href="/login.jsp">قبل ثبت‌نام کرده‌اید؟</a>
+        <a href="/login">قبل ثبت‌نام کرده‌اید؟</a>
         <button>
             <i class="spinner"></i>
             <span class="state">ثبت‌نام</span>
