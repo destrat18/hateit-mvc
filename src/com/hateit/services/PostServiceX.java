@@ -3,6 +3,7 @@ package com.hateit.services;
 import com.hateit.common.HateItException;
 import com.hateit.common.Utility;
 import com.hateit.interfaces.repositories.*;
+import com.hateit.interfaces.services.CategoryService;
 import com.hateit.interfaces.services.PostService;
 import com.hateit.interfaces.services.UserService;
 import com.hateit.models.*;
@@ -20,9 +21,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class PostServiceX implements PostService {
@@ -41,6 +40,9 @@ public class PostServiceX implements PostService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    CategoryService categoryService;
 
     @Override
     public Post get(String id) throws Exception {
@@ -76,14 +78,13 @@ public class PostServiceX implements PostService {
             nPost.setUser(user);
             nPost.setTimestamp(System.currentTimeMillis()/1000);
             nPost.setId(UUID.randomUUID().toString());
-            for(String cat:categories.split(" "))
-                if(cat.length() > 0) {
-                    Category nCategory = new Category();
-                    nCategory.setId(Utility.getUniqueId());
-                    nCategory.setName(cat);
-                    nCategory.setPost(nPost);
-                    categoryRepository.add(nCategory);
-                }
+            String[] cats = categories.split(" ");
+            Set<String> mySet = new HashSet<>(Arrays.asList(cats));
+            cats = mySet.toArray(new String[mySet.size()]);
+            for(String cat:cats)
+                if(cat.length() > 0)
+                    categoryService.addToPost(nPost, cat);
+
             nPost.setImage(Utility.uploadFile(file));
             if(hateItException.isHappen())
                 throw hateItException;

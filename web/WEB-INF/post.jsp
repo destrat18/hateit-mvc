@@ -81,6 +81,11 @@
                 sendComment(getPostId(), content);
             });
 
+            $("#category").keyup(function () {
+                    update_cats($("#category").val(), $("#side_post_cat_container"));
+                }
+            );
+            update_cats($("#category").val(), $("#side_post_cat_container"));
         });
     </script>
 </head>
@@ -247,6 +252,26 @@
                             <p>
                                 <form action="/delete-post/${post.id}" method="get">
                                     <button class="w3-button w3-block" style="background-color: indianred;">حذف</button>
+                                </form>
+                            </p>
+                        </div>
+                    </div>
+                    <br>
+                </c:if>
+
+                <c:if test="${!empty sessionScope.user && sessionScope.user.value >= post.user.value}">
+                    <div class="w3-card w3-round w3-white w3-center">
+                        <div class="w3-container">
+                            <p>تبریک!</p>
+                            <p>شما می‌توانید موضوع این پست را عوض کنید!</p>
+                            <p>
+                                <form action="/update-category/${post.id}" method="post">
+                                    <input autocomplete="off" value="${post.categoriesStr}" type="text" placeholder="ورزشی" class="w3-border w3-padding" id="category" name="category" style="width: 100%;" autofocus/>
+                                    <div id="side_post_cat_container">
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <button class="w3-button w3-block" style="background-color: coral;">تغییر</button>
                                 </form>
                             </p>
                         </div>

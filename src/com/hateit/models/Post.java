@@ -125,6 +125,15 @@ public class Post {
         return getComments().size();
     }
 
+    public String getCategoriesStr()
+    {
+        String s = "";
+        if(getCategories() != null)
+            for(Category cat:getCategories())
+                s += cat.getName() + " ";
+        return s;
+    }
+
     @Override
     public String toString() {
         return "Post{" +

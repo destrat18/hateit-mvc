@@ -50,19 +50,17 @@
             return true;
         }
 
-        function showNotification(title, message) {
-
-            $('#notification_title').text(title);
-            $('#notification_message').text(message);
-            $('#notification_modal').modal('show');
-        }
-
         $(document).ready(function(){
+            $("#category").keyup(function () {
+                update_cats($("#category").val(), $("#main_post_cat_container"));
+                }
+            );
         });
 
     </script>
 </head>
 <body class="w3-theme-l5">
+
 <%--notification popup--%>
 <div class="modal fade" id="notification_modal" role="dialog">
     <div class="modal-dialog">
@@ -127,7 +125,11 @@
                                 <hr>
                                 <input type="file" name="file">
                                 <br>
-                                <input type="text" placeholder="ورزشی" class="w3-border w3-padding" id="category" name="category" style="width: 100%;" autofocus/>
+                                <input autocomplete="off" type="text" placeholder="ورزشی" class="w3-border w3-padding" id="category" name="category" style="width: 100%;" autofocus/>
+                                <div id="main_post_cat_container">
+
+                                </div>
+
                                 <%--<br>--%>
                                 <%--<br>--%>
                                 <%--<div class="w3-round w3-white w3-hide-small" id="categoriesList" style="width: 100%">--%>

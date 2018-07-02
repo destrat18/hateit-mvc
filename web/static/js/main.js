@@ -26,3 +26,14 @@ function showNotification(message) {
     $('#notification_message').text(message);
     $('#notification_modal').modal('show');
 }
+
+function update_cats(cat_text, cat_container)
+{
+    cat_container.empty();
+    var cat_arr = cat_text.split(" ");
+    var i;
+    for (i = 0; i < cat_arr.length; i++) {
+        if(cat_arr[i].length > 0)
+            cat_container.append("<a href=\"/category/" + cat_arr[i] +"\"><span class=\"w3-tag w3-small w3-theme-d3\" >" +cat_arr[i]+" </span></a>\n")
+    }
+}

@@ -44,13 +44,6 @@ public class HomeController {
         return "home";
     }
 
-    @RequestMapping(value = {"/category/{cname}"}, method = RequestMethod.GET)
-    protected String showHome(@PathVariable("cname") String cname, Model model) throws Exception {
-
-        model.addAttribute("posts", postService.getAllByCategoryName(cname));
-        return "home";
-    }
-
 
 //    @ExceptionHandler(Exception.class)
 //    public ModelAndView handleError(HttpServletRequest req, Exception ex) {

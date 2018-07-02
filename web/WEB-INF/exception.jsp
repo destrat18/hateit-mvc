@@ -94,16 +94,26 @@
             </div>
 
             <div class="w3-col m6">
-                <!-- Profile -->
-                    <div class="w3-card w3-round w3-white">
-                        <div class="w3-container">
-                            <c:forEach items="${ex.messages}" var="message">
-                                <li> ${message} </li>
-                            </c:forEach>
-                            <a href="${ex.backLink}">${ex.backTitle}</a>
-                        </div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="w3-card w3-round w3-white">
+                    <div class="w3-container">
+                        <c:forEach items="${ex.messages}" var="message">
+                            <li> ${message} </li>
+                        </c:forEach>
+                        <a href="${ex.backLink}">${ex.backTitle}</a>
                     </div>
-                    <br>
+                </div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
                 <!-- End Left Column -->
             </div>
             <!-- End Grid -->
