@@ -107,7 +107,6 @@
     </div>
 
 
-    <%--notification popup--%>
     <div class="modal fade" id="notification_modal" role="dialog">
         <div class="modal-dialog">
 
@@ -132,13 +131,13 @@
                 <c:when test="${!empty sessionScope.user}">
                     <a href="/new-post" class="w3-right w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="پست جدید"><i class="fa fa-plus fa-flip-horizontal"></i> پست جدید</a>
                     <a href="/logout" class="w3-left w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="خروج"><i class="fa fa-sign-out fa-flip-horizontal"></i> خروج</a>
-                    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-left w3-padding-large w3-hover-white" title="My Account">
+                    <a href="/profile" class="w3-bar-item w3-button w3-hide-small w3-left w3-padding-large w3-hover-white" title="My Account">
                         <img src="${sessionScope.user.image}" class="w3-circle" style="height:23px;width:23px">
                             ${sessionScope.user.name}
                     </a>
                 </c:when>
                 <c:otherwise>
-                    <a href="/login" class="w3-right w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="ورود"><i class="fa fa-sign-up fa-flip-horizontal"></i> ورود</a>
+                    <a href="/login" class="w3-right w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="ورود"><i class="fa fa-sign-in fa-flip-horizontal"></i> ورود</a>
                     <a href="/sign-up" class="w3-right w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Login"><i class="fa fa-user-plus"></i> ثبت‌نام</a>
 
                 </c:otherwise>
@@ -225,9 +224,22 @@
 
                         </c:choose>
                         <hr>
-                        <p><i class="fa fa-pencil fa-fw w3-margin-left w3-text-theme"></i> ${post.user.shortDescription}</p>
-                        <p><i class="fa fa-home fa-fw w3-margin-left w3-text-theme"></i> ${post.user.location}</p>
-                        <p><i class="fa fa-heart fa-fw w3-margin-left w3-text-theme"></i> ${post.user.age} سال</p>
+                        <c:if test="${! empty post.user.shortDescription}">
+                            <p><i class="fa fa-pencil fa-fw w3-margin-left w3-text-theme"></i> ${post.user.shortDescription}</p>
+                        </c:if>
+
+                        <c:if test="${! empty post.user.location}">
+                            <p><i class="fa fa-home fa-fw w3-margin-left w3-text-theme"></i> ${post.user.location}</p>
+                        </c:if>
+
+                        <c:if test="${ post.user.month > 0}">
+                            <p>
+                                <i class="fa fa-heart fa-fw w3-margin-left w3-text-theme"></i>
+                                    ${post.user.day} ${post.user.monthName} ${post.user.year}
+                                --
+                                    ${post.user.age}سال
+                            </p>
+                        </c:if>
                         <p><i class="fa fa-star fa-fw w3-margin-left w3-text-theme"></i> ${post.user.value} امتیاز دارد</p>
                     </div>
                 </div>

@@ -267,7 +267,7 @@
         <i class="fa fa-key"></i>
         <input type="password" placeholder="تکرار گذرواژه" name="repassword" />
         <i class="fa fa-key"></i>
-        <a href="/login.jsp">قبل ثبت‌نام کرده‌اید؟</a>
+        <a href="/login">قبل ثبت‌نام کرده‌اید؟</a>
         <button>
             <i class="spinner"></i>
             <span class="state">ثبت‌نام</span>
